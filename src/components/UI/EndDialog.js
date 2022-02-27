@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dialog } from '@mui/material';
-import { DialogWrapper } from 'components/Styled/endDialog.styled';
+import { DialogWrapper } from 'components/Styled/endDialog.styled.js';
 import Image from 'next/image';
 export default function EndDialog({ open, handleClose, score }) {
   return (

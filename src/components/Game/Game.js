@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLayoutEffect } from '@/hooks/useSSREffect';
+import { useLayoutEffect } from '@/hooks/useSSREffect.js';
 
 const Game = ({ tagName: Tag = 'div', setScore, setOpen }) => {
   const parent = React.useRef();

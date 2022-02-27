@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import ScoreCard from '../components/UI/ScoreCard';
-import { WrapperHome } from 'components/Styled/index.styled';
-import EndDialog from 'components/UI/endDialog';
+import ScoreCard from '../components/UI/ScoreCard.js';
+import { WrapperHome } from 'components/Styled/index.styled.js';
+import EndDialog from 'components/UI/endDialog.js';
 const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });

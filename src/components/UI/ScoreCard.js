@@ -2,7 +2,7 @@ import {
   Card,
   CurrentScore,
   HighScore,
-} from 'components/Styled/scoreCard.styled';
+} from 'components/Styled/scoreCard.styled.js';
 import React from 'react';
 
 export default function ScoreCard({ score, highScore }) {
