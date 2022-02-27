@@ -24,20 +24,76 @@ Total time taken to build the project is 6-7 hours including research.
 # File Structure
 
 ```bash
-
-├── public
-├── server
-│   ├── api
-│   ├── config
-│   ├── logger
-│   ├── schema
-│   └── server.js
-└── src
-    ├── axios
-    ├── components
-    ├── pages
-    ├── styled-components
-    └── App.js
++---public
+|   |   favicon.ico
+|   |   index.html
+|   |   logo192.png
+|   |   logo512.png
+|   |   manifest.json
+|   |   robots.txt
+|   |
+|   \---assets
+|       |   ethlas.png
+|       |   gradient.png
+|       |   logo.png
+|       |
+|       +---css
+|       |       main.css
+|       |
+|       +---glsl
+|       |       plasma-bundle.glsl.js
+|       |       starfields.glsl.js
+|       |
+|       +---img
+|       |   |   bomb.png
+|       |   |   dude.png
+|       |   |   logo.png
+|       |   |   platform.png
+|       |   |   sky.png
+|       |   |   star.png
+|       |   |
+|       |   \---Button
+|       |           button_sprite_sheet.png
+|       |
+|       \---png
+|               phaser3-logo.png
+|
+\---src
+    |   App.css
+    |   App.js
+    |   App.test.js
+    |   index.css
+    |   index.js
+    |   logo.svg
+    |   reportWebVitals.js
+    |   setupTests.js
+    |
+    +---components
+    |   +---Elements
+    |   +---Game
+    |   |       Game.js
+    |   |
+    |   +---Styled
+    |   |       endDialog.styled.js
+    |   |       globalStyles.js
+    |   |       index.styled.js
+    |   |       scoreCard.styled.js
+    |   |
+    |   \---UI
+    |           EndDialog.js
+    |           ScoreCard.js
+    |
+    +---Game
+    |       GameScene.js
+    |       index.js
+    |       PreloadScene.js
+    |
+    +---hooks
+    |       useSSREffect.js
+    |
+    \---pages
+            index.js
+            _app.js
 
 ```
 
