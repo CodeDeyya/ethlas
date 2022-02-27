@@ -21,6 +21,26 @@ Total time taken to build the project is 6-7 hours including research.
 </p>
 <!-- toc -->
 
+# File Structure
+
+```bash
+
+├── public
+├── server
+│   ├── api
+│   ├── config
+│   ├── logger
+│   ├── schema
+│   └── server.js
+└── src
+    ├── axios
+    ├── components
+    ├── pages
+    ├── styled-components
+    └── App.js
+
+```
+
 # Setup
 
 - Clone the project cd/ to project file.
