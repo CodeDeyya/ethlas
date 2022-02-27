@@ -1,15 +1,7 @@
 import * as React from 'react';
 import { useLayoutEffect } from '@/hooks/useSSREffect';
 
-const Game = ({
-  tagName: Tag = 'div',
-  className = 'relative top-0 left-0 w-full h-full my-12',
-  variant = 'default',
-  setScore,
-  scoreArray,
-  setScoreArray,
-  setOpen,
-}) => {
+const Game = ({ tagName: Tag = 'div', setScore, setOpen }) => {
   const parent = React.useRef();
   const canvas = React.useRef();
   const game = React.useRef();
@@ -170,7 +162,6 @@ const Game = ({
 
       setTimeout(() => {
         this.scene.restart();
-
         score = 0;
         setOpen(true);
       }, 3000);

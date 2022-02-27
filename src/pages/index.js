@@ -10,7 +10,7 @@ const Game = dynamic(() => import('@/components/Game/Game.js'), {
 
 export default function Home() {
   const [score, setScore] = React.useState(0);
-  const [scoreArray, setScoreArray] = React.useState([]);
+  const [scoreArray, setScoreArray] = React.useState([0]);
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -33,12 +33,7 @@ export default function Home() {
       <WrapperHome>
         <EndDialog open={open} handleClose={handleClose} score={score} />
         <ScoreCard score={score} highScore={Math.max(...scoreArray)} />
-        <Game
-          setScore={setScore}
-          setScoreArray={setScoreArray}
-          scoreArray={scoreArray}
-          setOpen={setOpen}
-        />
+        <Game setScore={setScore} setOpen={setOpen} />
       </WrapperHome>
     </>
   );

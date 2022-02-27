@@ -14,6 +14,8 @@
 
 The code is build with the intension of integrating Next JS with phaser. The game is build as SSR and it communicates smoothly with the client side react app. Hooks have been utilized to enhance performance between the communication. Styled components is used for styling purposes. The game is a fan made game for team Ethlas. The code only communicate the highscore and current score from game to UI as a proof of concept for communication.
 
+Total time taken to build the project is 6-7 hours including research.
+
 <p align="center">
   <img src="https://ethlas.com/_next/static/images/9-1b9b4ffcbb669f90cbc36d5ee38f6271.png.webp" alt="Wiring" height=300 >
 </p>
