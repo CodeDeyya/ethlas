@@ -6,6 +6,9 @@ const Game = ({
   className = 'relative top-0 left-0 w-full h-full my-12',
   variant = 'default',
   setScore,
+  scoreArray,
+  setScoreArray,
+  setOpen,
 }) => {
   const parent = React.useRef();
   const canvas = React.useRef();
@@ -167,6 +170,9 @@ const Game = ({
 
       setTimeout(() => {
         this.scene.restart();
+
+        score = 0;
+        setOpen(true);
       }, 3000);
     }
 
@@ -186,21 +192,13 @@ const Game = ({
     };
 
     scene.create = function () {
-      var logo = this.add.image(400, 100, 'logo');
+      var logo = this.add.image(400, 300, 'logo');
       var headingText = this.add.text(
         width / 2 - 130,
         height - 30,
         'Click To Start',
         { fontSize: '32px', fill: '#FFF' },
       );
-
-      this.tweens.add({
-        targets: logo,
-        y: 300,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: false,
-      });
 
       this.input.once(
         'pointerdown',
@@ -233,9 +231,12 @@ const Game = ({
         type: Phaser.CANVAS,
         parent: parent.current,
         canvas: canvas.current,
-        width: 800,
-        height: 600,
-        // pixelArt: true,
+        scale: {
+          mode: Phaser.Scale.FIT,
+          autoCenter: Phaser.Scale.CENTER_BOTH,
+          width: 800,
+          height: 600,
+        },
         autoCenter: true,
         backgroundColor: '#000000',
         physics: {
@@ -253,7 +254,13 @@ const Game = ({
   }, [Phaser, preload, parent, canvas]);
 
   return Phaser ? (
-    <Tag ref={parent}>
+    <Tag
+      ref={parent}
+      style={{
+        height: '80vh',
+        marginTop: '30px',
+      }}
+    >
       <canvas ref={canvas} />
     </Tag>
   ) : null;

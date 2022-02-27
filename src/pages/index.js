@@ -1,22 +1,45 @@
 import * as React from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-
-const Game = dynamic(() => import('@/components/Game/Game.jsx'), {
+import ScoreCard from '../components/UI/ScoreCard';
+import { WrapperHome } from 'components/Styled/index.styled';
+import EndDialog from 'components/UI/endDialog';
+const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });
 
 export default function Home() {
   const [score, setScore] = React.useState(0);
+  const [scoreArray, setScoreArray] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
 
+  const handleClose = () => {
+    console.log(score);
+    let newScores = [score, ...scoreArray];
+    setScoreArray(newScores);
+    setScore(0);
+    setOpen(false);
+  };
   return (
-    <div>
+    <>
       <Head>
-        <title>Phaser Game</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Ethlas Lore</title>
+        <link rel="icon" href="/assets/ethlas.png" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      <h1>Score is {score}</h1>
-      <Game setScore={setScore} />
-    </div>
+      <WrapperHome>
+        <EndDialog open={open} handleClose={handleClose} score={score} />
+        <ScoreCard score={score} highScore={Math.max(...scoreArray)} />
+        <Game
+          setScore={setScore}
+          setScoreArray={setScoreArray}
+          scoreArray={scoreArray}
+          setOpen={setOpen}
+        />
+      </WrapperHome>
+    </>
   );
 }

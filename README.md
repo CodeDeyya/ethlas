@@ -1,30 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NextJS - Phaser Game
 
-## Getting Started
+# Content
 
-First, run the development server:
+- [Background](#background)
+- [Setup](#setup)
+- [Technologies](#technologies)
+- [Libraries](#libraries)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+# Background
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img src="https://ethlas.com/_next/static/images/egg-78fbe54df92dca0d976db4852fdfbd3a.gif" align="right"
+     alt="Serial Transmission" height=200 >
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The code is build with the intension of integrating Next JS with phaser. The game is build as SSR and it communicates smoothly with the client side react app. Hooks have been utilized to enhance performance between the communication. Styled components is used for styling purposes. The game is a fan made game for team Ethlas. The code only communicate the highscore and current score from game to UI as a proof of concept for communication.
 
-## Learn More
+<p align="center">
+  <img src="https://ethlas.com/_next/static/images/9-1b9b4ffcbb669f90cbc36d5ee38f6271.png.webp" alt="Wiring" height=300 >
+</p>
+<!-- toc -->
 
-To learn more about Next.js, take a look at the following resources:
+# Setup
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Clone the project cd/ to project file.
+- Run command **yarn** to install all node modules.
+- Run command **yarn dev** to start development server
+- Run command **yarn build** to build the next js app
+- Run command **yarn start** to start the next js app.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# Technologies
 
-## Deploy on Vercel
+<p align="center">
+  <img src="https://phaser.io/images/img.png" alt="Phaser" height=200>
+</p>
+<p align="center">
+  <img src="https://miro.medium.com/max/1000/1*htbUdWgFQ3a94PMEvBr_hQ.png" alt="NodeJS" height=200 >
+</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Libraries
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **styled-components** library used for styling
+- **MUI V5** library used for UI
