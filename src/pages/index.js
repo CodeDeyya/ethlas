@@ -3,7 +3,7 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import ScoreCard from '../components/UI/ScoreCard.js';
 import { WrapperHome } from 'components/Styled/index.styled.js';
-import EndDialog from '../components/UI/endDialog.js';
+import EndDialog from '../components/UI/EndDialog.js';
 const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });
