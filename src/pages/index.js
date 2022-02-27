@@ -14,7 +14,6 @@ export default function Home() {
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
-    console.log(score);
     let newScores = [score, ...scoreArray];
     setScoreArray(newScores);
     setScore(0);
