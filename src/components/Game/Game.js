@@ -173,7 +173,6 @@ const Game = ({ tagName: Tag = 'div', setScore, setOpen, start, setStart }) => {
   const preload = React.useCallback(
     (width, height) => {
       var scene = new Phaser.Scene('Preload');
-
       scene.preload = function () {
         this.load.spritesheet(
           'button',
@@ -196,7 +195,6 @@ const Game = ({ tagName: Tag = 'div', setScore, setOpen, start, setStart }) => {
           this.scene.start('Game');
         }
       };
-
       return scene;
     },
     [start],
