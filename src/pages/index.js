@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import ScoreCard from '../components/UI/ScoreCard.js';
 import { WrapperHome } from 'components/Styled/index.styled.js';
 import EndDialog from '../components/UI/EndDialog.js';
+import { Button } from '@mui/material';
 const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });
@@ -12,7 +13,11 @@ export default function Home() {
   const [score, setScore] = React.useState(0);
   const [scoreArray, setScoreArray] = React.useState([0]);
   const [open, setOpen] = React.useState(false);
+  const [start, setStart] = React.useState(false);
 
+  const startPlay = () => {
+    setStart(true);
+  };
   const handleClose = () => {
     let newScores = [score, ...scoreArray];
     setScoreArray(newScores);
@@ -31,8 +36,18 @@ export default function Home() {
       </Head>
       <WrapperHome>
         <EndDialog open={open} handleClose={handleClose} score={score} />
-        <ScoreCard score={score} highScore={Math.max(...scoreArray)} />
-        <Game setScore={setScore} setOpen={setOpen} />
+        <ScoreCard
+          score={score}
+          highScore={Math.max(...scoreArray)}
+          startPlay={startPlay}
+          start={start}
+        />
+        <Game
+          setScore={setScore}
+          setOpen={setOpen}
+          start={start}
+          setStart={setStart}
+        />
       </WrapperHome>
     </>
   );

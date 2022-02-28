@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useLayoutEffect } from '@/hooks/useSSREffect.js';
 
-const Game = ({ tagName: Tag = 'div', setScore, setOpen }) => {
+const Game = ({ tagName: Tag = 'div', setScore, setOpen, start, setStart }) => {
   const parent = React.useRef();
   const canvas = React.useRef();
   const game = React.useRef();
@@ -170,44 +170,37 @@ const Game = ({ tagName: Tag = 'div', setScore, setOpen }) => {
     return scene;
   }, []);
 
-  const preload = React.useCallback((width, height) => {
-    var scene = new Phaser.Scene('Preload');
+  const preload = React.useCallback(
+    (width, height) => {
+      var scene = new Phaser.Scene('Preload');
 
-    scene.preload = function () {
-      this.load.spritesheet(
-        'button',
-        'assets/img/Button/button_sprite_sheet.png',
-        { frameWidth: 193, frameHeight: 71 },
-      );
-      this.load.image('logo', 'assets/logo.png');
-    };
+      scene.preload = function () {
+        this.load.spritesheet(
+          'button',
+          'assets/img/Button/button_sprite_sheet.png',
+          { frameWidth: 193, frameHeight: 71 },
+        );
+        this.load.image('logo', 'assets/logo.png');
+      };
 
-    scene.create = function () {
-      var logo = this.add.image(400, 300, 'logo');
-      var headingText = this.add.text(
-        width / 2 - 130,
-        height - 30,
-        'Click To Start',
-        { fontSize: '32px', fill: '#FFF' },
-      );
+      scene.create = function () {
+        var logo = this.add.image(400, 300, 'logo');
+        var headingText = this.add.text(
+          width / 2 - 130,
+          height - 30,
+          'Click To Start',
+          { fontSize: '32px', fill: '#FFF' },
+        );
 
-      this.input.once(
-        'pointerdown',
-        function () {
+        if (start) {
           this.scene.start('Game');
-        },
-        this,
-      );
-    };
+        }
+      };
 
-    scene.update = function () {
-      'use strict';
-
-      // ...
-    };
-
-    return scene;
-  }, []);
+      return scene;
+    },
+    [start],
+  );
 
   useLayoutEffect(() => {
     let g;
