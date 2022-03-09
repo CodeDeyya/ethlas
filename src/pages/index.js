@@ -5,6 +5,7 @@ import ScoreCard from '../components/UI/ScoreCard.js';
 import { WrapperHome } from 'components/Styled/index.styled.js';
 import EndDialog from '../components/UI/EndDialog.js';
 import { Button } from '@mui/material';
+import MessageBoard from 'components/UI/MessageBoard.js';
 const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });
@@ -14,6 +15,7 @@ export default function Home() {
   const [scoreArray, setScoreArray] = React.useState([0]);
   const [open, setOpen] = React.useState(false);
   const [start, setStart] = React.useState(false);
+  const [openMessage, setOpenMessage] = React.useState(false);
 
   const startPlay = () => {
     setStart(true);
@@ -33,22 +35,22 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap"
+          rel="stylesheet"
+        ></link>
       </Head>
-      <WrapperHome>
-        <EndDialog open={open} handleClose={handleClose} score={score} />
-        <ScoreCard
-          score={score}
-          highScore={Math.max(...scoreArray)}
-          startPlay={startPlay}
-          start={start}
-        />
+      <div>
         <Game
           setScore={setScore}
           setOpen={setOpen}
           start={start}
           setStart={setStart}
-        />
-      </WrapperHome>
+          setOpenMessage={setOpenMessage}
+        >
+          <MessageBoard display={openMessage} setOpenMessage={setOpenMessage} />
+        </Game>
+      </div>
     </>
   );
 }
