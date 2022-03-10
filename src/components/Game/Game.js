@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useLayoutEffect } from '@/hooks/useSSREffect.js';
-
 const Game = ({
   tagName: Tag = 'div',
   setScore,
@@ -27,8 +26,14 @@ const Game = ({
     var scene = new Phaser.Scene('game');
     let button;
     let fauna;
-    scene.preload = function () {};
-    let up = false;
+
+    scene.preload = function () {
+      scene.load.plugin(
+        'rexmousewheelscrollerplugin',
+        'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexmousewheelscrollerplugin.min.js',
+        true,
+      );
+    };
 
     class Bee extends Phaser.GameObjects.Image {
       constructor(config) {
@@ -51,11 +56,25 @@ const Game = ({
     }
 
     scene.create = function () {
+      this.cameras.main.setBounds(0, 0, 1024, 1024);
       const map = this.make.tilemap({ key: 'dungeon' });
+
       const tileset = map.addTilesetImage('dungeons', 'tiles');
       map.createLayer('Floor', tileset);
       map.createLayer('Flora', tileset);
       map.createLayer('Buildings', tileset);
+      this.cameras.main.setZoom(1);
+      this.cameras.main.centerOn(0, 0);
+      // this.input.on(
+      //   'pointerdown',
+      //   function () {
+      //     var cam = this.cameras.main;
+
+      //     cam.pan(500, 500, 2000, 'Power2');
+      //     cam.zoomTo(4, 3000);
+      //   },
+      //   this,
+      // );
 
       fauna = this.add.sprite(300, 300, 'fauna', 'run-down-3.png');
       this.anims.create({
@@ -106,6 +125,23 @@ const Game = ({
       bee.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
         setOpenMessage(true);
       });
+
+      this.input.on(
+        'wheel',
+        function (pointer, gameObjects, deltaX, deltaY, deltaZ) {
+          console.log(deltaY);
+          if (deltaY < 0) {
+            var cam = this.cameras.main;
+            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Power2');
+            cam.zoomTo(1.5, 2000);
+          }
+          if (deltaY > 0) {
+            var cam = this.cameras.main;
+            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Power2');
+            cam.zoomTo(1, 2000);
+          }
+        },
+      );
     };
 
     scene.update = function (t, dt) {};
@@ -147,8 +183,8 @@ const Game = ({
         type: Phaser.Canvas,
         parent: parent.current,
         canvas: canvas.current,
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: 1000,
+        height: 1000,
         autoCenter: true,
         backgroundColor: '#000000',
         physics: {
