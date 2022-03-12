@@ -60,16 +60,24 @@ const Game = ({
       const map = this.make.tilemap({ key: 'dungeon' });
 
       const tileset = map.addTilesetImage('dungeons', 'tiles');
-      map.createLayer('Floor', tileset);
+      const floor = map.createLayer('Floor', tileset);
       map.createLayer('Flora', tileset);
       map.createLayer('Buildings', tileset);
       this.cameras.main.setZoom(1);
       this.cameras.main.centerOn(0, 0);
+      console.log(floor);
+
+      this.input.on('pointermove', function (p) {
+        var cam = this.cameras.main;
+        if (!p.isDown) return;
+        cam.scrollX -= (p.x - p.prevPosition.x) / cam.zoom;
+        cam.scrollY -= (p.y - p.prevPosition.y) / cam.zoom;
+      });
+
       // this.input.on(
       //   'pointerdown',
       //   function () {
       //     var cam = this.cameras.main;
-
       //     cam.pan(500, 500, 2000, 'Power2');
       //     cam.zoomTo(4, 3000);
       //   },
@@ -132,13 +140,13 @@ const Game = ({
           console.log(deltaY);
           if (deltaY < 0) {
             var cam = this.cameras.main;
-            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Power2');
-            cam.zoomTo(1.5, 2000);
+            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Linear');
+            cam.zoomTo(2, 500);
           }
           if (deltaY > 0) {
             var cam = this.cameras.main;
-            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Power2');
-            cam.zoomTo(1, 2000);
+            cam.pan(pointer.position.x, pointer.position.y, 2000, 'Linear');
+            cam.zoomTo(1, 500);
           }
         },
       );
