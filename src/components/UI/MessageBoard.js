@@ -8,7 +8,7 @@ import {
 import { AiFillCloseSquare } from 'react-icons/ai';
 import { Button } from '@mui/material';
 
-export default function MessageBoard({ display, setOpenMessage }) {
+export default function MessageBoard({ display, setOpenMessage, handleClick }) {
   return (
     <Container display={display}>
       <TitleBox>
@@ -26,7 +26,7 @@ export default function MessageBoard({ display, setOpenMessage }) {
           variant="contained"
           color="secondary"
           onClick={() => {
-            setOpenMessage(false);
+            handleClick();
           }}
         >
           Log In

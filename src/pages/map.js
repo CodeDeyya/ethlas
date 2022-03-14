@@ -10,7 +10,7 @@ const Game = dynamic(() => import('@/components/Game/Game.js'), {
   ssr: true,
 });
 
-export default function Home() {
+export default function Map() {
   const [score, setScore] = React.useState(0);
   const [scoreArray, setScoreArray] = React.useState([0]);
   const [open, setOpen] = React.useState(false);
