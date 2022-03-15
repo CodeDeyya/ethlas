@@ -4,9 +4,7 @@ import { useRouter } from 'next/router';
 
 const Game = ({
   tagName: Tag = 'div',
-  setScore,
   setOpen,
-  start,
   setStart,
   fade,
   setFade,
@@ -26,10 +24,27 @@ const Game = ({
     }
   }, []);
 
+  const Clouds = React.useMemo(() => {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.navigator !== 'undefined'
+    ) {
+      return require('./Clouds');
+    }
+  }, []);
+
+  const Button = React.useMemo(() => {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.navigator !== 'undefined'
+    ) {
+      return require('./Button');
+    }
+  }, []);
+
   const gameScene = React.useCallback(
     (width, height) => {
       var scene = new Phaser.Scene('game');
-      let button;
       let fauna;
 
       scene.preload = function () {
@@ -39,45 +54,6 @@ const Game = ({
           true,
         );
       };
-
-      class Clouds extends Phaser.GameObjects.Image {
-        constructor(config) {
-          super(config.scene, config.x, config.y, config.object);
-          config.scene.add.existing(this);
-          config.scene.physics.add.existing(this);
-          this.x = config.x;
-          this.y = config.y;
-          this.body.allowGravity = false;
-          console.log(this.body, 'BODYYY');
-          config.scene.tweens.add({
-            targets: this.body.velocity,
-            x: { from: -15, to: 15 },
-            ease: 'Power0',
-            repeat: -1,
-            duraton: 60000,
-          });
-        }
-      }
-
-      class Bee extends Phaser.GameObjects.Image {
-        constructor(config) {
-          super(config.scene, config.x, config.y, 'button');
-          config.scene.add.existing(this);
-          config.scene.physics.add.existing(this);
-          this.x = config.x;
-          this.y = config.y;
-          this.body.allowGravity = false;
-          config.scene.tweens.add({
-            targets: this.body.velocity,
-            y: { from: -50, to: 50 },
-            ease: Phaser.Math.Easing.Quadratic.InOut,
-            yoyo: true,
-            repeat: -1,
-            duraton: 1000,
-            delay: 100,
-          });
-        }
-      }
 
       scene.create = function () {
         this.cameras.main.setBounds(0, 0, 1024, 1024);
@@ -90,7 +66,6 @@ const Game = ({
         map.createLayer('Buildings', tileset);
         this.cameras.main.setZoom(1);
         this.cameras.main.centerOn(0, 0);
-
         this.input.on('pointermove', function (p) {
           var cam = this.cameras.main;
           if (!p.isDown) return;
@@ -145,19 +120,19 @@ const Game = ({
         });
         fauna.anims.play('faune-run-side');
 
-        let bee = new Bee({ scene: this, x: 400, y: 190 });
-        bee.setInteractive();
-        bee.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+        let button = new Button.default({ scene: this, x: 400, y: 190 });
+        button.setInteractive();
+        button.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
           setOpenMessage(true);
         });
 
-        let cloud1 = new Clouds({
+        let cloud1 = new Clouds.default({
           scene: this,
           x: 700,
           y: 300,
           object: 'cloud1',
         });
-        let cloud2 = new Clouds({
+        let cloud2 = new Clouds.default({
           scene: this,
           x: 750,
           y: 330,
@@ -192,27 +167,24 @@ const Game = ({
     [fade],
   );
 
-  const preload = React.useCallback(
-    (width, height) => {
-      var scene = new Phaser.Scene('Preload');
-      scene.preload = function () {
-        this.load.image('tiles', 'tiles/atlas.png');
-        this.load.tilemapTiledJSON('dungeon', 'assets/tiles/map.json');
-        this.load.image('button', 'assets/ui/button.png');
-        this.load.image('cloud1', 'assets/clouds/Cloud 1.png');
-        this.load.image('cloud2', 'assets/clouds/Cloud 2.png');
-        this.load.image('cloud3', 'assets/clouds/Cloud 3.png');
-        this.load.image('cloud4', 'assets/clouds/Cloud 4.png');
-        this.load.atlas('fauna', 'assets/character/fauna.png');
-      };
+  const preload = React.useCallback((width, height) => {
+    var scene = new Phaser.Scene('Preload');
+    scene.preload = function () {
+      this.load.image('tiles', 'tiles/atlas.png');
+      this.load.tilemapTiledJSON('dungeon', 'assets/tiles/map.json');
+      this.load.image('button', 'assets/ui/button.png');
+      this.load.image('cloud1', 'assets/clouds/Cloud 1.png');
+      this.load.image('cloud2', 'assets/clouds/Cloud 2.png');
+      this.load.image('cloud3', 'assets/clouds/Cloud 3.png');
+      this.load.image('cloud4', 'assets/clouds/Cloud 4.png');
+      this.load.atlas('fauna', 'assets/character/fauna.png');
+    };
 
-      scene.create = function () {
-        this.scene.start('game');
-      };
-      return scene;
-    },
-    [start],
-  );
+    scene.create = function () {
+      this.scene.start('game');
+    };
+    return scene;
+  }, []);
 
   useLayoutEffect(() => {
     let g;
