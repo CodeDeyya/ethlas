@@ -48,6 +48,12 @@ const Game = ({
       let fauna;
 
       scene.preload = function () {
+        scene.load.scenePlugin(
+          'AnimatedTiles',
+          'https://raw.githubusercontent.com/nkholski/phaser-animated-tiles/master/dist/AnimatedTiles.js',
+          'animatedTiles',
+          'animatedTiles',
+        );
         scene.load.plugin(
           'rexmousewheelscrollerplugin',
           'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexmousewheelscrollerplugin.min.js',
@@ -58,12 +64,17 @@ const Game = ({
       scene.create = function () {
         this.cameras.main.setBounds(0, 0, 1024, 1024);
         const map = this.make.tilemap({ key: 'dungeon' });
-        var fadeCam = this.cameras.main;
-        fadeCam.fadeIn(1000, 0, 0, 0);
         const tileset = map.addTilesetImage('dungeons', 'tiles');
+
         const floor = map.createLayer('Floor', tileset);
         map.createLayer('Flora', tileset);
         map.createLayer('Buildings', tileset);
+        this.animatedTiles.init(map);
+        var fadeCam = this.cameras.main;
+        fadeCam.fadeIn(1000, 0, 0, 0);
+
+        console.log(scene.animatedTiles, 'SCENE');
+
         this.cameras.main.setZoom(1);
         this.cameras.main.centerOn(0, 0);
         this.input.on('pointermove', function (p) {
